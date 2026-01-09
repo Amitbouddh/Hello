@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simple PDF Share</title>
+    <title>PDF Direct Download</title>
     <style>
         * {
             margin: 0;
@@ -13,7 +13,7 @@
         }
         
         body {
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             padding: 20px;
             display: flex;
@@ -22,19 +22,19 @@
         }
         
         .container {
-            max-width: 800px;
+            max-width: 600px;
             width: 100%;
             background-color: white;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
             overflow: hidden;
+            text-align: center;
         }
         
         header {
-            background: linear-gradient(to right, #4b6cb7, #182848);
+            background: linear-gradient(to right, #4A00E0, #8E2DE2);
             color: white;
-            padding: 30px;
-            text-align: center;
+            padding: 40px 20px;
         }
         
         h1 {
@@ -48,19 +48,64 @@
         }
         
         .content {
-            padding: 30px;
+            padding: 40px 30px;
+        }
+        
+        .pdf-icon {
+            font-size: 80px;
+            color: #FF4757;
+            margin-bottom: 20px;
+        }
+        
+        .pdf-name {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #2f3542;
+            margin-bottom: 30px;
+            word-break: break-word;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: linear-gradient(to right, #FF416C, #FF4B2B);
+            color: white;
+            padding: 15px 40px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1.2rem;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 20px rgba(255, 65, 108, 0.4);
+            margin: 10px;
+        }
+        
+        .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(255, 65, 108, 0.6);
+        }
+        
+        .btn-secondary {
+            background: linear-gradient(to right, #3498db, #2980b9);
+            box-shadow: 0 6px 20px rgba(52, 152, 219, 0.4);
+        }
+        
+        .btn-secondary:hover {
+            box-shadow: 0 10px 25px rgba(52, 152, 219, 0.6);
         }
         
         .instructions {
             background-color: #f8f9fa;
-            border-left: 4px solid #4b6cb7;
-            padding: 20px;
-            margin-bottom: 30px;
-            border-radius: 0 8px 8px 0;
+            padding: 25px;
+            border-radius: 15px;
+            margin-top: 30px;
+            text-align: left;
+            border-left: 5px solid #4A00E0;
         }
         
-        .instructions h2 {
-            color: #182848;
+        .instructions h3 {
+            color: #2d3436;
             margin-bottom: 15px;
         }
         
@@ -73,101 +118,46 @@
             line-height: 1.6;
         }
         
-        .pdf-section {
-            background-color: #f0f5ff;
-            padding: 25px;
-            border-radius: 10px;
-            margin-bottom: 30px;
-            text-align: center;
-        }
-        
-        .pdf-icon {
-            font-size: 3rem;
-            color: #e74c3c;
-            margin-bottom: 15px;
-        }
-        
-        .pdf-name {
-            font-size: 1.3rem;
-            font-weight: 600;
-            margin-bottom: 20px;
-            color: #2c3e50;
-        }
-        
-        .btn {
-            display: inline-block;
-            background: linear-gradient(to right, #3498db, #2980b9);
-            color: white;
-            padding: 12px 30px;
-            text-decoration: none;
-            border-radius: 50px;
-            font-weight: 600;
-            font-size: 1.1rem;
-            border: none;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
-        }
-        
-        .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(52, 152, 219, 0.4);
-        }
-        
-        .btn:active {
-            transform: translateY(-1px);
-        }
-        
-        .btn-download {
-            background: linear-gradient(to right, #2ecc71, #27ae60);
-            box-shadow: 0 4px 15px rgba(46, 204, 113, 0.3);
-        }
-        
-        .btn-download:hover {
-            box-shadow: 0 6px 20px rgba(46, 204, 113, 0.4);
-        }
-        
-        .github-link {
-            display: inline-flex;
-            align-items: center;
-            background-color: #24292e;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 6px;
-            text-decoration: none;
-            margin-top: 15px;
-            transition: all 0.3s ease;
-        }
-        
-        .github-link:hover {
-            background-color: #000;
-        }
-        
-        .github-icon {
-            margin-right: 8px;
-            font-size: 1.2rem;
+        code {
+            background-color: #2d3436;
+            color: #dfe6e9;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 0.9rem;
         }
         
         footer {
-            text-align: center;
             padding: 20px;
-            color: #7f8c8d;
-            border-top: 1px solid #eee;
+            color: #636e72;
             font-size: 0.9rem;
+            border-top: 1px solid #eee;
+        }
+        
+        .success-message {
+            background-color: #d4edda;
+            color: #155724;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #c3e6cb;
+            display: none;
         }
         
         @media (max-width: 600px) {
             h1 {
-                font-size: 1.8rem;
+                font-size: 2rem;
             }
             
             .content {
-                padding: 20px;
+                padding: 30px 20px;
             }
             
             .btn {
-                padding: 10px 25px;
-                font-size: 1rem;
+                padding: 12px 30px;
+                font-size: 1.1rem;
+                display: block;
+                margin: 15px auto;
             }
         }
     </style>
@@ -176,106 +166,77 @@
 <body>
     <div class="container">
         <header>
-            <h1>Simple PDF Share</h1>
-            <p class="subtitle">Share your PDF files directly from GitHub</p>
+            <h1>PDF Direct Download</h1>
+            <p class="subtitle">One-click direct PDF download</p>
         </header>
         
         <div class="content">
+            <div class="success-message" id="successMessage">
+                <i class="fas fa-check-circle"></i> PDF downloading started!
+            </div>
+            
+            <div class="pdf-icon">
+                <i class="fas fa-file-pdf"></i>
+            </div>
+            
+            <div class="pdf-name" id="pdfDisplayName">Your-Document.pdf</div>
+            
+            <!-- DIRECT DOWNLOAD BUTTON WITH download ATTRIBUTE -->
+            <a href="YOUR_PDF_URL_HERE" class="btn" id="downloadBtn" download="Your-Document.pdf">
+                <i class="fas fa-download"></i> Direct Download PDF
+            </a>
+            
+            <br>
+            
+            <a href="https://github.com" class="btn btn-secondary" target="_blank">
+                <i class="fab fa-github"></i> Upload More PDFs
+            </a>
+            
             <div class="instructions">
-                <h2>How to Use This Website</h2>
+                <h3>How to set up:</h3>
                 <ol>
-                    <li>Upload your PDF file to your GitHub repository</li>
-                    <li>Replace the PDF link below with your PDF's direct link</li>
-                    <li>Your PDF will be available for viewing/downloading</li>
+                    <li>Upload your PDF to GitHub repository</li>
+                    <li>Click on your PDF file, then click <strong>"Raw"</strong> button</li>
+                    <li>Copy the URL from address bar</li>
+                    <li>Replace <code>YOUR_PDF_URL_HERE</code> in the code with your URL</li>
+                    <li>Change <code>download="Your-Document.pdf"</code> to your PDF name</li>
                 </ol>
-            </div>
-            
-            <div class="pdf-section">
-                <div class="pdf-icon">
-                    <i class="fas fa-file-pdf"></i>
-                </div>
-                <div class="pdf-name" id="pdf-title">Sample Document.pdf</div>
-                <p>Click below to view or download the PDF file</p>
-                
-                <!-- Replace this link with your PDF's direct URL -->
-                <a href="https://github.com/Amitbouddh/Hello/blob/main/resumeupdated_1763747968.pdf" 
-                   class="btn btn-download" target="_blank" id="pdf-link">
-                    <i class="fas fa-download"></i> Download PDF
-                </a>
-                
-                <div style="margin-top: 15px;">
-                    <a href="#" class="btn" id="view-pdf">
-                        <i class="fas fa-eye"></i> View PDF
-                    </a>
-                </div>
-            </div>
-            
-            <div style="text-align: center;">
-                <p>To share your own PDF:</p>
-                <a href="https://github.com" class="github-link" target="_blank">
-                    <i class="fab fa-github github-icon"></i> Go to GitHub
-                </a>
+                <p><strong>Example URL:</strong> <code>https://raw.githubusercontent.com/username/repo/main/file.pdf</code></p>
             </div>
         </div>
         
         <footer>
-            <p>Hosted with GitHub Pages • PDFs served via GitHub raw URLs</p>
+            <p>PDF will download directly without opening in browser</p>
         </footer>
     </div>
 
-    <!-- PDF Viewer Modal -->
-    <div id="pdf-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.8); z-index: 1000; justify-content: center; align-items: center;">
-        <div style="background: white; border-radius: 8px; width: 90%; max-width: 900px; max-height: 90vh; display: flex; flex-direction: column;">
-            <div style="display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; border-bottom: 1px solid #eee;">
-                <h3 id="modal-title" style="margin: 0;">PDF Viewer</h3>
-                <button id="close-modal" style="background: none; border: none; font-size: 1.5rem; cursor: pointer; color: #666;">&times;</button>
-            </div>
-            <div style="flex: 1; overflow: auto; padding: 10px;">
-                <iframe id="pdf-viewer" src="" style="width: 100%; height: 70vh; border: none;"></iframe>
-            </div>
-        </div>
-    </div>
-
     <script>
-        // Get PDF link from the download button
-        const pdfLink = document.getElementById('pdf-link');
-        const viewPdfBtn = document.getElementById('view-pdf');
-        const pdfModal = document.getElementById('pdf-modal');
-        const pdfViewer = document.getElementById('pdf-viewer');
-        const closeModal = document.getElementById('close-modal');
-        const modalTitle = document.getElementById('modal-title');
-        const pdfTitle = document.getElementById('pdf-title');
-        
-        // Set up PDF viewer
-        viewPdfBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            const pdfUrl = pdfLink.href;
-            pdfViewer.src = pdfUrl;
-            modalTitle.textContent = pdfTitle.textContent;
-            pdfModal.style.display = 'flex';
-        });
-        
-        // Close modal
-        closeModal.addEventListener('click', function() {
-            pdfModal.style.display = 'none';
-            pdfViewer.src = '';
-        });
-        
-        // Close modal when clicking outside
-        pdfModal.addEventListener('click', function(e) {
-            if (e.target === pdfModal) {
-                pdfModal.style.display = 'none';
-                pdfViewer.src = '';
+        // Auto-download feature (optional)
+        // If you want PDF to download automatically when page loads, uncomment below:
+        /*
+        window.onload = function() {
+            const downloadLink = document.getElementById('downloadBtn');
+            if(downloadLink.href && downloadLink.href !== window.location.href) {
+                // Auto-click download link after 1 second
+                setTimeout(function() {
+                    downloadLink.click();
+                }, 1000);
             }
+        };
+        */
+        
+        // Show success message when download starts
+        document.getElementById('downloadBtn').addEventListener('click', function() {
+            document.getElementById('successMessage').style.display = 'block';
+            setTimeout(function() {
+                document.getElementById('successMessage').style.display = 'none';
+            }, 5000);
         });
         
-        // Instructions for user
-        console.log("To use this website with your own PDF:");
-        console.log("1. Upload your PDF to a GitHub repository");
-        console.log("2. Get the direct link to your PDF file");
-        console.log("3. Replace the href in the download button with your PDF link");
-        console.log("4. Enable GitHub Pages in your repository settings");
+        // Display current PDF name from download attribute
+        const downloadBtn = document.getElementById('downloadBtn');
+        const pdfDisplayName = document.getElementById('pdfDisplayName');
+        pdfDisplayName.textContent = downloadBtn.getAttribute('download') || 'Your-Document.pdf';
     </script>
 </body>
-
 </html>
